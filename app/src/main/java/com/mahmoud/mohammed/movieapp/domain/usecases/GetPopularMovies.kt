@@ -10,8 +10,8 @@ open class GetPopularMovies  constructor(transformer: Transformer<List<MovieEnti
                                          private val moviesRepository: MoviesRepository) :
                                          UseCase<List<MovieEntity>>(transformer)
 {
-    override fun createObservable(data: Map<String, Any>?): Observable<List<MovieEntity>> {
-        return moviesRepository.getMovies()
+    override fun createObservable(page:Int, data: Map<String, Any>?): Observable<List<MovieEntity>> {
+        return moviesRepository.getMovies(page)
     }
 
 }

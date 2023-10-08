@@ -19,8 +19,8 @@ class PopularMoviesViewModel
         viewState.value = PopularMoviesViewState()
     }
 
-    fun getPopularMovies() {
-        addDisposable(getPopularMovies.observable()
+    fun getPopularMovies(page:Int) {
+        addDisposable(getPopularMovies.observable(page)
                 .flatMap { movieEntityMovieMapper.observable(it) }
                 .subscribe({ movies ->
                     viewState.value?.let {

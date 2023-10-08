@@ -1,5 +1,6 @@
 package com.mahmoud.mohammed.movieapp.dagger.network
 
+import com.mahmoud.mohammed.movieapp.common.Query.API_KEY
 import com.mahmoud.mohammed.movieapp.data.api.Api
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,7 @@ class NetworkModule(private val baseUrl: String, private val apiKey: String) {
             val originalHttpUrl = original.url()
 
             val url = originalHttpUrl.newBuilder()
-                    .addQueryParameter("api_key", apiKey)
+                    .addQueryParameter(API_KEY/*"api_key"*/, apiKey)
                     .build()
 
             val requestBuilder = original.newBuilder()

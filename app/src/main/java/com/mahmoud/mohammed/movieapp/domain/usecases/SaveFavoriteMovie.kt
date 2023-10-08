@@ -14,7 +14,7 @@ class SaveFavoriteMovie(transformer: Transformer<Boolean>,
         private const val PARAM_MOVIE_ENTITY = "param:movieEntity"
     }
 
-    override fun createObservable(data: Map<String, Any>?): Observable<Boolean> {
+    override fun createObservable(page:Int, data: Map<String, Any>?): Observable<Boolean> {
 
         val movieEntity = data?.get(PARAM_MOVIE_ENTITY)
 
@@ -31,6 +31,6 @@ class SaveFavoriteMovie(transformer: Transformer<Boolean>,
     fun save(movieEntity: MovieEntity): Observable<Boolean> {
         val data = HashMap<String, MovieEntity>()
         data[PARAM_MOVIE_ENTITY] = movieEntity
-        return observable(data)
+        return observable(1, data)
     }
 }

@@ -1,5 +1,6 @@
 package com.mahmoud.mohammed.movieapp.data.repository
 
+import android.graphics.pdf.PdfDocument.Page
 import com.mahmoud.mohammed.movieapp.data.api.Api
 import com.mahmoud.mohammed.movieapp.data.entities.DetailsData
 import com.mahmoud.mohammed.movieapp.data.entities.MovieData
@@ -24,12 +25,12 @@ class MoviesRepositoryImpl (api: Api,
         remoteDataStore = RemoteMoviesDataStore(api, movieDataMapper, detailedDataMapper)
     }
 
-    override fun getMovies(): Observable<List<MovieEntity>> {
-        return if (!cache.isEmpty()) {
-            return memoryDataStore.getMovies()
-        } else {
-            remoteDataStore.getMovies().doOnNext { cache.saveAll(it) }
-        }
+    override fun getMovies(page: Int): Observable<List<MovieEntity>> {
+//        return if (!cache.isEmpty()) {
+//            return memoryDataStore.getMovies(page)
+//        } else {
+            return remoteDataStore.getMovies(page).doOnNext { cache.saveAll(it) }
+//        }
     }
 
 

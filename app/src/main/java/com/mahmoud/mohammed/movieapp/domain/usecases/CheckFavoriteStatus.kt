@@ -14,7 +14,7 @@ class CheckFavoriteStatus(transformer: Transformer<Boolean>,
         private const val PARAM_MOVIE_ENTITY = "param:movieEntity"
     }
 
-    override fun createObservable(data: Map<String, Any>?): Observable<Boolean> {
+    override fun createObservable(page:Int, data: Map<String, Any>?): Observable<Boolean> {
         val movieId = data?.get(PARAM_MOVIE_ENTITY)
         movieId?.let {
             return moviesCache.get(it as Int).flatMap { optionalMovieEntity ->
@@ -26,7 +26,7 @@ class CheckFavoriteStatus(transformer: Transformer<Boolean>,
     fun check(movieId: Int): Observable<Boolean> {
         val data = HashMap<String, Int>()
         data[PARAM_MOVIE_ENTITY] = movieId
-        return observable(data)
+        return observable(1, data)
     }
 
 }

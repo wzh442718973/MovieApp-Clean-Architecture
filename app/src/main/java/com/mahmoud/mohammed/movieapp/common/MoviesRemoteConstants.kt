@@ -28,5 +28,5 @@ object Query {
 
     // Please Use the key value like professional developer, avoid bad usages!!
     // (I shouldn't expose it but it is used for didactic purpose)
-    const val API_KEY_VALUE = BuildConfig.THE_MOVIE_API_KEY
+    const val API_KEY_VALUE = "69f8d44407d7b73a4103add4c76fccb6"//BuildConfig.THE_MOVIE_API_KEY
 }

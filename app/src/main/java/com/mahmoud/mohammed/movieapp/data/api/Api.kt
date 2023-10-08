@@ -1,5 +1,6 @@
 package com.mahmoud.mohammed.movieapp.data.api
 
+import android.graphics.pdf.PdfDocument.Page
 import com.mahmoud.mohammed.movieapp.data.entities.DetailsData
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -12,6 +13,6 @@ interface Api {
     fun getMovieDetails(@Path("id") movieId: Int): Observable<DetailsData>
 
     @GET("movie/popular") ///movie/now_playing
-    fun getPopularMovies(): Observable<MovieListResult>
+    fun getPopularMovies(@Query("page") page: Int): Observable<MovieListResult>
 
 }

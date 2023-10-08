@@ -7,10 +7,15 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import java.lang.IllegalArgumentException
 
-class GetFavoriteMovies(transformer: Transformer<List<MovieEntity>>,
-                        private val moviesCache: MoviesCache): UseCase<List<MovieEntity>>(transformer) {
+class GetFavoriteMovies(
+    transformer: Transformer<List<MovieEntity>>,
+    private val moviesCache: MoviesCache
+) : UseCase<List<MovieEntity>>(transformer) {
 
-    override fun createObservable(data: Map<String, Any>?): Observable<List<MovieEntity>> {
+    override fun createObservable(
+        page: Int,
+        data: Map<String, Any>?
+    ): Observable<List<MovieEntity>> {
         return moviesCache.getAll()
     }
 

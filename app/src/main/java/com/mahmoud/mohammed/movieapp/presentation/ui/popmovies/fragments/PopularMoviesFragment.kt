@@ -2,9 +2,12 @@ package com.mahmoud.mohammed.movieapp.presentation.ui.popmovies.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.AbsListView.OnScrollListener
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -30,19 +33,22 @@ class MovieListFragment : BaseFragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       (activity?.application as MovieApplication).createPopularComponenet().inject(this)
+        (activity?.application as MovieApplication).createPopularComponenet().inject(this)
         initViewModel()
         if (savedInstanceState == null) {
-            viewModel.getPopularMovies()
+            viewModel.getPopularMovies(page)
         }
 
     }
 
-    lateinit var binding:FragmentMovieListBinding;
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    lateinit var binding: FragmentMovieListBinding;
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentMovieListBinding.inflate(layoutInflater, container, false);
         return binding.root
     }
@@ -50,7 +56,10 @@ class MovieListFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.viewState.observe(this, Observer {
-            if (it != null) handleViewState(it)
+            if (it != null) {
+                page += 1
+                handleViewState(it)
+            }
         })
         viewModel.errorState.observe(this, Observer { throwable ->
             throwable?.let {
@@ -63,21 +72,46 @@ class MovieListFragment : BaseFragment() {
         progressBar.visibility = if (state.showLoading) View.VISIBLE else View.GONE
         state.movies?.let { popularMoviesAdapter.addMovies(it) }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         progressBar = binding.popularMoviesProgress
         popularMoviesAdapter = PopularMoviesAdapter { movie, view ->
 
             navigateToMovieDetailsScreen(movie)
-/*
-            val i = Intent(context, MovieDetailsActivity::class.java)
-            i.putExtra(MovieDetailsActivity.MOVIE_ID, movie.id)
-            startActivity(i);*/
+            /*
+                        val i = Intent(context, MovieDetailsActivity::class.java)
+                        i.putExtra(MovieDetailsActivity.MOVIE_ID, movie.id)
+                        startActivity(i);*/
 
         }
         recyclerView = binding.popularMoviesRecyclerview
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
         recyclerView.adapter = popularMoviesAdapter
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (isBottom(recyclerView)) {
+                    Log.e("wzh", "isBottom");
+                    viewModel.getPopularMovies(page + 1)
+                }
+            }
+        })
+    }
+
+    fun isBottom(recyclerView: RecyclerView): Boolean {
+        if (recyclerView != null &&
+            recyclerView.computeVerticalScrollExtent() +
+            recyclerView.computeVerticalScrollOffset() >=
+            recyclerView.computeVerticalScrollRange()
+        ) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -85,9 +119,12 @@ class MovieListFragment : BaseFragment() {
         viewModel = ViewModelProviders.of(this, factory).get(PopularMoviesViewModel::class.java)
 
     }
+
     override fun onDestroy() {
         super.onDestroy()
         (activity?.application as MovieApplication).releasePopularComponent()
     }
 
+
+    var page: Int = 1
 }

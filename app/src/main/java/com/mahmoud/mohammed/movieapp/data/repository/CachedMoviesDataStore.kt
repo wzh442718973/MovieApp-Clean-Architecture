@@ -1,5 +1,6 @@
 package com.mahmoud.mohammed.movieapp.data.repository
 
+import android.graphics.pdf.PdfDocument.Page
 import com.mahmoud.mohammed.movieapp.domain.MoviesCache
 import com.mahmoud.mohammed.movieapp.domain.MoviesDataStore
 import com.mahmoud.mohammed.movieapp.domain.entities.MovieEntity
@@ -13,7 +14,7 @@ class CachedMoviesDataStore(private val moviesCache: MoviesCache): MoviesDataSto
         return moviesCache.get(movieId)
     }
 
-    override fun getMovies(): Observable<List<MovieEntity>> {
+    override fun getMovies(page: Int): Observable<List<MovieEntity>> {
         return moviesCache.getAll()
     }
 

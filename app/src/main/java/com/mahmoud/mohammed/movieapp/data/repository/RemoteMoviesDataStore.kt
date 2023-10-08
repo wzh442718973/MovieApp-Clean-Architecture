@@ -18,8 +18,8 @@ class RemoteMoviesDataStore (private val api: Api,
             Observable.just(Optional.of(detailedDataMapper.mapFrom(detailedData)))
         }    }
 
-    override fun getMovies(): Observable<List<MovieEntity>> {
-        return api.getPopularMovies().map { results->
+    override fun getMovies(page:Int): Observable<List<MovieEntity>> {
+        return api.getPopularMovies(page).map { results->
             results.movies.map { movieDataMapper.mapFrom(it) }
         }
     }

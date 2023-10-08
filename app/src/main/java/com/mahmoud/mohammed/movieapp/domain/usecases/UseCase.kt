@@ -5,10 +5,10 @@ import io.reactivex.Observable
 
 abstract class UseCase<T>(private val transformer: Transformer<T>) {
 
-    abstract fun createObservable(data: Map<String, Any>? = null): Observable<T>
+    abstract fun createObservable(page:Int, data: Map<String, Any>? = null): Observable<T>
 
-    fun observable(withData: Map<String, Any>? = null): Observable<T> {
-        return createObservable(withData).compose(transformer)
+    fun observable(page:Int, withData: Map<String, Any>? = null): Observable<T> {
+        return createObservable(page, withData).compose(transformer)
     }
 
 }

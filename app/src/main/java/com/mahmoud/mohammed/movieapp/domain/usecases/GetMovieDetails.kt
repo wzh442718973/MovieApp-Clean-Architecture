@@ -19,10 +19,10 @@ class GetMovieDetails(
     fun getById(movieId: Int): Observable<Optional<MovieEntity>> {
         val data = HashMap<String, Int>()
         data[PARAM_MOVIE_ENTITY] = movieId
-        return observable(data)
+        return observable(1, data)
     }
 
-    override fun createObservable(data: Map<String, Any>?): Observable<Optional<MovieEntity>> {
+    override fun createObservable(page:Int, data: Map<String, Any>?): Observable<Optional<MovieEntity>> {
         val movieId = data?.get(PARAM_MOVIE_ENTITY)
         movieId?.let {
             return moviesRepository.getMovie(it as Int)
