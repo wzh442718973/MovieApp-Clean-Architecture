@@ -18,8 +18,7 @@ import coil.api.load
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mahmoud.mohammed.movieapp.MovieApplication
 import com.mahmoud.mohammed.movieapp.R
-import kotlinx.android.synthetic.main.activity_movie_details.*
-import kotlinx.android.synthetic.main.movie_details_fragment.*
+import com.mahmoud.mohammed.movieapp.databinding.ActivityMovieDetailsBinding
 import javax.inject.Inject
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -51,15 +50,20 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var binding:ActivityMovieDetailsBinding;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_details)
+
+        binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
         (application as MovieApplication).createDetailsComponent().inject(this)
-        val movieId = intent.extras.getInt(MOVIE_ID, 0)
-        val posterUrl = intent.extras.getString(IMAGE_ID, "")
-        backdrop.load(posterUrl)
-        factory.movieId = movieId
-        fav_btn.setOnClickListener { detailsViewModel.favoriteButtonClicked() }
+        val movieId = intent.extras?.getInt(MOVIE_ID, 0)
+        val posterUrl = intent.extras?.getString(IMAGE_ID, "")
+        binding.backdrop.load(posterUrl)
+        factory.movieId = movieId!!
+        binding.favBtn.setOnClickListener { detailsViewModel.favoriteButtonClicked() }
 
         detailsViewModel = ViewModelProviders.of(this, factory).get(MovieDetailsViewModel::class.java)
 
@@ -89,8 +93,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     private fun handleFavoriteStateChange(favorite: Boolean?) {
         if (favorite == null) return
-        fav_btn.visibility = View.VISIBLE
-        fav_btn.setImageDrawable(
+        binding.favBtn.visibility = View.VISIBLE
+        binding.favBtn.setImageDrawable(
                 if (favorite)
                     ContextCompat.getDrawable(this, R.drawable.ic_like)
                 else
@@ -102,10 +106,10 @@ class MovieDetailsActivity : AppCompatActivity() {
             return
 
         state.backdropUrl?.let {
-            posterimage.load(it)
+            binding.posterimage.load(it)
         }
-        movie_title.text = state.title
-        date_status.text = state.releaseDate
+        binding.movieTitle.text = state.title
+        binding.dateStatus.text = state.releaseDate
 
 
     }

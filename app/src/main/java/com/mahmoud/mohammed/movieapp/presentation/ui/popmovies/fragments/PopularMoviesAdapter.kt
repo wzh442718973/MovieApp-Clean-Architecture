@@ -3,21 +3,27 @@ package com.mahmoud.mohammed.movieapp.presentation.ui.popmovies.fragments
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.mahmoud.mohammed.movieapp.R
+import com.mahmoud.mohammed.movieapp.databinding.FragmentMovieListBinding
+import com.mahmoud.mohammed.movieapp.databinding.PopularMoviesItemRowBinding
 import com.mahmoud.mohammed.movieapp.presentation.entities.Movie
-import kotlinx.android.synthetic.main.popular_movies_item_row.view.*
 
-class PopularMoviesAdapter constructor(private val onMovieSelected:
-                                       (Movie, View) -> Unit) :
-        RecyclerView.Adapter<PopularMoviesAdapter.MovieCellViewHolder>() {
+class PopularMoviesAdapter constructor(
+    private val onMovieSelected:
+        (Movie, View) -> Unit
+) :
+    RecyclerView.Adapter<PopularMoviesAdapter.MovieCellViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCellViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-                R.layout.popular_movies_item_row,
-                parent,
-                false)
-        return MovieCellViewHolder(view)
+        val binding = PopularMoviesItemRowBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return MovieCellViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieCellViewHolder, position: Int) {
@@ -38,7 +44,12 @@ class PopularMoviesAdapter constructor(private val onMovieSelected:
         notifyDataSetChanged()
     }
 
-    class MovieCellViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieCellViewHolder(binding: PopularMoviesItemRowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        val title = binding.title
+        val image = binding.image
+
         fun bind(movie: Movie, listener: (Movie, View) -> Unit) = with(itemView) {
 
 

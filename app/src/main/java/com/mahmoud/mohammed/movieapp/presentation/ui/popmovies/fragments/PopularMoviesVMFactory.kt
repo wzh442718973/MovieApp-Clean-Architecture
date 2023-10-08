@@ -10,7 +10,7 @@ import com.mahmoud.mohammed.movieapp.presentation.entities.Movie
 class PopularMoviesVMFactory(private val useCase: GetPopularMovies,
                              private val mapper: Mapper<MovieEntity, Movie>) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return PopularMoviesViewModel(useCase, mapper) as T
     }
 

@@ -20,7 +20,7 @@ class MovieDetailsVMFactory(
 
     var movieId: Int = -1
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MovieDetailsViewModel(
                 getMovieDetails,
                 saveFavoriteMovie,

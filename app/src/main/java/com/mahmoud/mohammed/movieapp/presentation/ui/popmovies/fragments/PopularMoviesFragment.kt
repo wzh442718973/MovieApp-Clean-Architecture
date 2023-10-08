@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mahmoud.mohammed.movieapp.MovieApplication
 import com.mahmoud.mohammed.movieapp.R
 import com.mahmoud.mohammed.movieapp.base.BaseFragment
-import com.mahmoud.mohammed.movieapp.presentation.ui.detail.MovieDetailsActivity
-import kotlinx.android.synthetic.main.fragment_movie_list.*
+import com.mahmoud.mohammed.movieapp.databinding.FragmentMovieListBinding
 import javax.inject.Inject
 
 fun newMovieListFragment() = MovieListFragment()
@@ -41,10 +40,11 @@ class MovieListFragment : BaseFragment() {
 
     }
 
+    lateinit var binding:FragmentMovieListBinding;
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_movie_list, container, false)
-        return view
+        binding = FragmentMovieListBinding.inflate(layoutInflater, container, false);
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class MovieListFragment : BaseFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar = popular_movies_progress
+        progressBar = binding.popularMoviesProgress
         popularMoviesAdapter = PopularMoviesAdapter { movie, view ->
 
             navigateToMovieDetailsScreen(movie)
@@ -75,7 +75,7 @@ class MovieListFragment : BaseFragment() {
             startActivity(i);*/
 
         }
-        recyclerView = popular_movies_recyclerview
+        recyclerView = binding.popularMoviesRecyclerview
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
         recyclerView.adapter = popularMoviesAdapter
     }
