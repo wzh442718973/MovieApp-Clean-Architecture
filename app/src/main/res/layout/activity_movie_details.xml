@@ -27,7 +27,7 @@
     <ImageView
         android:id="@+id/backdrop"
         android:layout_width="0dp"
-        android:layout_height="172dp"
+        android:layout_height="180dp"
         android:scaleType="centerCrop"
         android:src="@drawable/singapore"
         app:layout_constraintBottom_creator="1"
@@ -48,14 +48,9 @@
 
     <ImageView
         android:id="@+id/posterimage"
-        android:layout_width="150dp"
+        android:layout_width="160dp"
         android:layout_height="255dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@color/white"
@@ -69,12 +64,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        android:weightSum="15"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,29 +78,35 @@
         <TextView
             android:id="@+id/movie_title"
             android:autoSizeTextType="uniform"
+            android:lines="2"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textColor="#fff"
+            android:shadowColor="#000"
+            android:shadowDy="5"
+            android:shadowDx="5"
+            android:shadowRadius="5"
+            android:textSize="28sp"
             android:text="The Meg" />
 
         <TextView
             android:id="@+id/tagline"
             android:layout_width="wrap_content"
             android:autoSizeTextType="uniform"
-
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_below="@id/title"
-            android:layout_weight="5"
             android:text="Chomp On This"
+            android:layout_marginBottom="5dp"
 
             />
 
         <TextView
             android:id="@+id/date_status"
             android:autoSizeTextType="uniform"
-            android:textSize="15sp"
+            android:textSize="19sp"
+            android:textColor="#E65353"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_below="@id/tagline"
