@@ -104,9 +104,11 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun handleViewState(state: MovieDetailsViewState?) {
         if (state == null)
             return
-
-        state.backdropUrl?.let {
+        state.posterUrl?.let {
             binding.posterimage.load(it)
+        }
+        state.backdropUrl?.let {
+            binding.backdrop.load(it)
         }
         binding.movieTitle.text = state.title
         binding.dateStatus.text = state.releaseDate

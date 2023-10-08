@@ -65,6 +65,7 @@ class MovieDetailsViewModel (private val getMovieDetails: GetMovieDetails,
                 releaseDate = movie.releaseDate,
                 votesAverage = movie.voteAverage,
                 backdropUrl = movie.backdropPath,
+                posterUrl = movie.posterPath,
                 genres = movie.details?.genres)
 
         viewState.value = newViewState

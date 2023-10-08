@@ -15,7 +15,7 @@ open class BaseFragment: Fragment() {
         startActivity(MovieDetailsActivity.newIntent(
                 context!!,
                 movie.id,
-                movie.posterPath), activityOptions?.toBundle())
+                movie.backdropPath/*.posterPath*/), activityOptions?.toBundle())
 
         activity?.overridePendingTransition(0, 0)
     }

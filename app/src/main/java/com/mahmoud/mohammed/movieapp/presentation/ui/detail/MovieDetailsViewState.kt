@@ -11,5 +11,6 @@ data class MovieDetailsViewState(
         var releaseDate: String? = null,
         var votesAverage: Double? = null,
         var backdropUrl: String? = null,
+        val posterUrl:String? = null,
         var genres: List<String>? = null
 )
